@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid py-5">
+        <div class = "container-fluid py-2 text-center">
+            <a href="{{ path('prodlist3', {id : product.subcat.category.id}) }}">{{ product.subcat.category.name }}</a>
+            //
+            <a href="{{ path('prodlist2', {id : product.subcat.id}) }}">{{ product.subcat.name }} </a>
+        </div>
+
+        <form action="" method="post" accept-charset="utf-8">
+            <div class="container-fluid">
+                <h3 id="details_name" data-editor-type="product-name">
+                    {{ product.label }} {{ product.model }}
+                </h3>
+            </div>
+
+            <input hidden readonly name="id" id="id" class="form-control" type="text" value="19">
+
+            <div id="details" class="d-flex flex-wrap justify-content-around">
+                <div id="details_left" class="col-lg-4 col-sm-12">
+                    <div id="details_image_main_container" >
+                        <a href="/assets/images/PRODUCTS/{{ product.picture }}"
+                           id="details_image_main_lightbox"
+                           data-lightbox="Images"
+                           data-title="{{ product.label }} {{ product.model }}">
+                            <img id="details_image_main" src="/assets/images/PRODUCTS/{{ product.picture }}"
+                                 alt="{{ product.picture }}">
+                        </a>
+                    </div>
+                </div>
+                <div id="details_right" class="col-lg-4 col-sm-12 offset-3">
+                    <div class="container-fluid">
+                        <h3 id="details_price" data-editor-type="product-price">
+                            &euro;{{ product.price }}
+                        </h3>
+                    </div>
+                    <br>
+
+                </div>
+            </div>
+            <div id="" class="container-fluid d-flex flex-wrap py-3">
+                <div id="" class="col-lg-6 col-sm-12">
+                    <h4>Description</h4>
+                    <p name="desc" id="desc">
+                    <p>{{ product.description | raw }}</p>
+                    </p>
+                </div>
+                <div id="" class="col-lg-4 col-sm-12 offset-1">
+                    <h4>Détails :</h4>
+                    {{ product.details | raw }}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

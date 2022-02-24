@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    {#{{ dump(list) }}#}
+    <div id="results" class="container-fluid py-5">
+        {% for subcat in list %}
+            <article class="results_product_item">
+                <a href="{{ path('prodlist2', { id: subcat.id}) }}"
+                   class="results_product_item_image_container" title="">
+{#                    <img src="http://localhost/Green/assets/images/PRODUCTS/{{ product.picture }}"#}
+{#                         alt="" class="results_product_item_image lazyload" />#}
+                </a>
+                <div class="results_product_item_content">
+                    <a href="{{ path('prodlist2', { id: subcat.id}) }}"
+                       class="results_product_item_name" title="">
+                        {{ subcat.name }}
+                    </a>
+                </div>
+            </article>
+
+        {% endfor %}
+    </div>
+{% endblock %}
