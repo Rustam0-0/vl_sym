@@ -28,49 +28,73 @@ class ClientType extends AbstractType
                     new NotBlank(),
                     new Regex(['pattern' => '/[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/'])
                 ],
-
                 'attr' => ['class' => 'form-control', 'required' => true]
             ])
-
             ->add('password', PasswordType::class, [
+                'invalid_message' => 'Veuillez mettre 8 caractéres dont une majuscule et un symbole',
                 'constraints' => [
-                new NotBlank(),
-                new Regex('/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,})$/')
-            ],
+                    new NotBlank(),
+                    new Regex('/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,})$/')
+                ],
                 'attr' => ['class' => 'form-control', 'required' => 'required']
             ])
-
             ->add('password', RepeatedType::class, [
-                'invalid_message' => 'Veuillez indiquez le même mot de passe et mettre 8 caractéres dont une majuscule et un symbole',
-                'first_options'  => ['label' => 'Mot de passe','attr' => [ 'required' => 'required']],
-                'second_options' => ['label' => 'Confirmation de mot de passe','attr' => [ 'required' =>true]],
+                'invalid_message' => 'Veuillez indiquez le même mot de passe',
+                'first_options' => ['label' => 'Mot de passe', 'attr' => ['required' => 'required']],
+                'second_options' => ['label' => 'Confirmation de mot de passe', 'attr' => ['required' => true]],
             ])
-
             ->add('name', TextType::class, [
+                'label' => 'Prénom',
                 'constraints' => [
-                new NotBlank(),
-                new Regex('/^[a-zA-Z]{2,}$/')
-            ],
+                    new NotBlank(),
+                    new Regex('/^[a-zA-Z]{2,}$/')
+                ],
                 'attr' => ['class' => 'form-control', 'required' => true]
             ])
-
-            ->add('surname', TextType::class, ['constraints' => [
-                new NotBlank(),
-                new Regex('/[a-zA-Z]{2,}$/')
-            ],
-                'attr' => ['class' => 'form-control', 'required' => true]])
-
-            ->add('address', TextType::class, ['label' => 'Adresse'])
-            ->add('address_complete', TextType::class, ['label' => 'Complément d\'adresse'])
-            ->add('zipcode', TextType::class, ['label' => 'Code postal'])
-            ->add('city', TextType::class, ['label' => 'Ville'])
+            ->add('surname', TextType::class, [
+                'label' => 'Nom',
+                'constraints' => [
+                    new NotBlank(),
+                    new Regex('/[a-zA-Z]{2,}$/')
+                ],
+                'attr' => ['class' => 'form-control', 'required' => true]
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse',
+                'constraints' => [
+                    new NotBlank(),
+                    new Regex('/[a-zA-Z]{2,}$/')
+                ],
+                'attr' => ['class' => 'form-control', 'required' => true]
+            ])
+            ->add('address_complete', TextType::class, [
+                'label' => 'Complément d\'adresse',
+                'constraints' => [
+                    new NotBlank(),
+                    new Regex('/[a-zA-Z]{1,}$/')
+                ],
+                'attr' => ['class' => 'form-control', 'required' => false]
+            ])
+            ->add('zipcode', TextType::class, [
+                'label' => 'Code postal',
+                'constraints' => [
+                    new NotBlank(),
+                    new Regex('/[a-zA-Z]{2,15}$/')
+                ],
+                'attr' => ['class' => 'form-control', 'required' => true]
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+                'constraints' => [
+                    new NotBlank(),
+                    new Regex('/[a-zA-Z]{2,}$/')
+                ],
+                'attr' => ['class' => 'form-control', 'required' => true]
+            ])
             ->add('country', EntityType::class, [
+                'label' => 'Pays',
                 'class' => Country::class,
-                'choice_label' => 'name',
-//                'query_builder' => function (CountryRepository $er) {
-//                    return $er->createQueryBuilder('u')
-//                        ->orderBy('u.name', 'ASC');
-//                },
+                'choice_label' => 'name'
             ])
             ->add('save', SubmitType::class);
     }

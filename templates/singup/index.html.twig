@@ -4,14 +4,32 @@
 
 {% block body %}
     <div class="container">
-        <div class="row p-4">
-            <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-                {{ dump(form) }}
-                {{ form_start(form) }}
+        <div class="container-fluid text-center py-5">
+            <h2 class="font_color">Créez vos identifiants</h2>
+        </div>
+
+        {{ form_start(form) }}
+        <div class="d-flex flex-wrap py-3">
+            <div class="col-lg-6 col-sm-12 px-5">
                 {{ form_row(form.email) }}
-                {{ form_row(form.email) }}
-                {{ form_end(form) }}
+                {{ form_row(form.password) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.surname) }}
+            </div>
+            <div class="col-lg-6 col-sm-12 px-5">
+                {{ form_row(form.address) }}
+                {{ form_row(form.address_complete) }}
+                {{ form_row(form.zipcode) }}
+                {{ form_row(form.city) }}
+                {{ form_row(form.country) }}
             </div>
         </div>
+        <div class="text-center py-5">
+            {#                <button type="submit" class="btn valider" name="save"> #}
+            {{ form_row(form.save) }}
+            {#                </button> #}
+        </div>
     </div>
+
+    {{ form_end(form) }}
 {% endblock %}

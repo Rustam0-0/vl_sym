@@ -37,7 +37,6 @@ class SingupController extends AbstractController
             $cli->setZipcode($task["zipcode"]);
             $cli->setCity($task["city"]);
             $cli->setCountry($task["country"]);
-//            $cli->setName($task["name"]);
             $cli->setDateAdd(new \DateTime());
 
             $user = new User();
