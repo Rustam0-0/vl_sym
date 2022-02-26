@@ -9,7 +9,7 @@
             <article class="results_product_item">
                 <a href="{{ path('prodlist2', { id: subcat.id}) }}"
                    class="results_product_item_image_container" title="">
-{#                    <img src="http://localhost/Green/assets/images/PRODUCTS/{{ product.picture }}"#}
+{#                    <img src="/assets/images/PRODUCTS/{{ subcat.product.picture }}"#}
 {#                         alt="" class="results_product_item_image lazyload" />#}
                 </a>
                 <div class="results_product_item_content">
@@ -19,7 +19,6 @@
                     </a>
                 </div>
             </article>
-
         {% endfor %}
     </div>
 {% endblock %}

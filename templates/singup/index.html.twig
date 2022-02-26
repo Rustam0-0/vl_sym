@@ -6,7 +6,11 @@
     <div class="container">
         <div class="row p-4">
             <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-                {{ form(form) }}
+                {{ dump(form) }}
+                {{ form_start(form) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.email) }}
+                {{ form_end(form) }}
             </div>
         </div>
     </div>

@@ -29,6 +29,11 @@ class Country
      */
     private $clients;
 
+//    public function __toString()
+//    {
+//        return 'test' . $this->name;
+//    }
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();

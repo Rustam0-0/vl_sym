@@ -22,7 +22,7 @@ class SubcatlistController extends AbstractController
 
         return $this->render('subcatlist/index.html.twig', [
             'categories' => $categories,
-            'list' => $list,
+            'list' => $list
         ]);
     }
 }

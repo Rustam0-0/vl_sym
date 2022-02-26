@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\User;
 use App\Form\ClientType;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +17,7 @@ class SingupController extends AbstractController
     /**
      * @Route("/singup", name="singup")
      */
-    public function singup(CategoryRepository $repocat, Request $request): Response
+    public function singup(CategoryRepository $repocat, Request $request, EntityManagerInterface $em): Response
     {
         $categories = $repocat->findAll();
         $form = $this->createForm(ClientType::class);
@@ -29,14 +31,26 @@ class SingupController extends AbstractController
 
             $cli = new Client();
             $cli->setName($task["name"]);
-            $cli->setName($task["surname"]);
-            $cli->setName($task["address"]);
-            $cli->setName($task["address_complete"]);
-            $cli->setName($task["zipcode"]);
-            $cli->setName($task["city"]);
-            $cli->setName($task["country"]);
-            $cli->setName($task["name"]);
-            $cli->setName($task["name"]);
+            $cli->setSurname($task["surname"]);
+            $cli->setAddress($task["address"]);
+            $cli->setAddressComplete($task["address_complete"]);
+            $cli->setZipcode($task["zipcode"]);
+            $cli->setCity($task["city"]);
+            $cli->setCountry($task["country"]);
+//            $cli->setName($task["name"]);
+            $cli->setDateAdd(new \DateTime());
+
+            $user = new User();
+            $user->setEmail($task["email"]);
+            $user->setPassword($task["password"]);
+            $user->setRoles(["ROLE_CLIENT"]);
+
+            $cli->setUser($user);
+
+            $em->persist($cli);
+            $em->persist($user);
+            $em->flush();
+
 
 
             // ... perform some action, such as saving the task to the database
