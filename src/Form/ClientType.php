@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -30,18 +31,33 @@ class ClientType extends AbstractType
                 ],
                 'attr' => ['class' => 'form-control', 'required' => true]
             ])
-            ->add('password', PasswordType::class, [
-                'invalid_message' => 'Veuillez mettre 8 caractéres dont une majuscule et un symbole',
+//            ->add('password', PasswordType::class, [
+//                'options' => ['attr' => ['class' => 'password-field']],
+//                'invalid_message' => 'Veuillez mettre 8 caractéres dont une majuscule et un symbole',
+//                'constraints' => [
+//                    new NotBlank(),
+//                    new Regex('/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,})$/')
+//                ],
+//                'attr' => ['class' => 'form-control', 'required' => 'required']
+//            ])
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Veuillez indiquez le même mot de passe',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options' => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmation de mot de passe'],
+                'mapped' => false,
                 'constraints' => [
                     new NotBlank(),
-                    new Regex('/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,})$/')
+                    new Regex(['pattern'=>'/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,})$/','match'=>true,
+                        'message' => 'Veuillez indiquez le même mot de passe et mettre 8 caractéres dont une majuscule et un symbole']),
+                    new Length([
+                        'min' => 8,
+                        'minMessage' => 'Veuillez entrer minimum {{ limit }} caractéres',
+                        'max' => 4096,
+                    ]),
                 ],
-                'attr' => ['class' => 'form-control', 'required' => 'required']
-            ])
-            ->add('password', RepeatedType::class, [
-                'invalid_message' => 'Veuillez indiquez le même mot de passe',
-                'first_options' => ['label' => 'Mot de passe', 'attr' => ['required' => 'required']],
-                'second_options' => ['label' => 'Confirmation de mot de passe', 'attr' => ['required' => true]],
             ])
             ->add('name', TextType::class, [
                 'label' => 'Prénom',
@@ -63,15 +79,15 @@ class ClientType extends AbstractType
                 'label' => 'Adresse',
                 'constraints' => [
                     new NotBlank(),
-                    new Regex('/[a-zA-Z]{2,}$/')
+                    new Regex('/[a-zA-Z0-9]{2,}$/')
                 ],
                 'attr' => ['class' => 'form-control', 'required' => true]
             ])
             ->add('address_complete', TextType::class, [
                 'label' => 'Complément d\'adresse',
                 'constraints' => [
-                    new NotBlank(),
-                    new Regex('/[a-zA-Z]{1,}$/')
+//                    new NotBlank(),
+                    new Regex('/[a-zA-Z0-9]$/')
                 ],
                 'attr' => ['class' => 'form-control', 'required' => false]
             ])
@@ -79,7 +95,7 @@ class ClientType extends AbstractType
                 'label' => 'Code postal',
                 'constraints' => [
                     new NotBlank(),
-                    new Regex('/[a-zA-Z]{2,15}$/')
+                    new Regex('/[0-9]{2,15}$/')
                 ],
                 'attr' => ['class' => 'form-control', 'required' => true]
             ])

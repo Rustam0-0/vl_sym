@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SingupController extends AbstractController
@@ -17,7 +18,7 @@ class SingupController extends AbstractController
     /**
      * @Route("/singup", name="singup")
      */
-    public function singup(CategoryRepository $repocat, Request $request, EntityManagerInterface $em): Response
+    public function singup(UserPasswordHasherInterface $passwordHasher, CategoryRepository $repocat, Request $request, EntityManagerInterface $em): Response
     {
         $categories = $repocat->findAll();
         $form = $this->createForm(ClientType::class);
@@ -41,7 +42,13 @@ class SingupController extends AbstractController
 
             $user = new User();
             $user->setEmail($task["email"]);
-            $user->setPassword($task["password"]);
+            $user->setPassword(
+                $passwordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+
             $user->setRoles(["ROLE_CLIENT"]);
 
             $cli->setUser($user);
