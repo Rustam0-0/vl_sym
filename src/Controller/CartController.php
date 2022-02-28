@@ -21,7 +21,7 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/add", name="cart_add")
      */
-    public function index(SessionInterface $session,ProductRepository $prod, Request $request): Response
+    public function index(SessionInterface $session, ProductRepository $prod, Request $request): Response
     {
 //        return $this->render('cart/index.html.twig', [
 //            'controller_name' => 'CartController',
@@ -53,11 +53,11 @@ class CartController extends AbstractController
     {
         $cart = $session->get("cart", []);
 
-        foreach ($cart as $key=>$value) {
+        foreach ($cart as $key => $value) {
             $product = $prod->find($key);
-            $cart[$key]['price']=$product->getPrice();
+            $cart[$key]['price'] = $product->getPrice();
         }
- dump($product);
+
         $categories = $repocat->findAll();
         return $this->render('cart/index.html.twig', [
             'categories' => $categories,

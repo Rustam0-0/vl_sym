@@ -12,6 +12,7 @@
             <th>Modèle</th>
             <th>Prix</th>
             <th>Quantité</th>
+            <th></th>
         </tr>
         </thead>
         {% set total =0 %}
@@ -19,14 +20,14 @@
         {% for  key,row in cart %}
     {% if key matches '/^\\d+$/' %}
         <tr>
-            <td>{{ row.picture }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><img class="img-fluid img_cart" src="/assets/images/PRODUCTS/{{ row.picture }}"></td>
+            <td>{{ row.label }}</td>
+            <td>{{ row.model }}</td>
+            <td>{{ row.price }}</td>
             <td>
-                <a ></a>
-                <a href="" class="">Supprimer</a>
+                {{ row.qty }}
             </td>
+            <td><a href="" class="btn-danger">Supprimer</a></td>
         </tr>
     </table>
         {% set total = total + row.qty*row.price %}
