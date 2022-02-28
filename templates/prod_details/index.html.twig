@@ -24,30 +24,29 @@
                     </a>
                 </div>
             </div>
-            <div id="details_right" class="col-lg-4 col-sm-12 offset-3">
-                <div class="container-fluid">
+            <div id="details_right container-fluid" class="col-lg-4 col-sm-12 offset-3">
                     <h3 id="details_price" data-editor-type="product-price">
                         &euro;{{ product.price }}
                     </h3>
-
-                    <div class="d-flex flex-wrap">
                         <form action="{{ path("cart_add") }}" method="post" accept-charset="utf-8">
-                            <div class="quantity">
-                                <input hidden readonly name="id" id="id" class="form-control" type="text"
-                                       value="{{ product.id }}">
-
-                                <input type="number" class="form-control quantity" name="qty" id="qty" min="0"
-                                       max="{{ product.stock }}"
-                                       value="{% if product.id in app.session.get('cart')|keys %}{{ app.session.get('cart')[product.id]['qty']}}{% else %}1{% endif %}">
+                            <input type="hidden" name="id" value="{{ product.id }}">
+                            <input type="hidden" name="label" value="{{ product.label }}">
+                            <input type="hidden" name="model" value="{{ product.model }}">
+                            <input type="hidden" name="picture" value="{{ product.picture }}">
+                            <div class="d-flex flex-wrap">
+                                <div class="quantity">
+                                    <input type="number" class="form-control quantity" name="qty" id="qty" min="0"
+                                           max="{{ product.stock }}"
+                                           value="{% if product.id in app.session.get('cart')|keys %}{{ app.session.get('cart')[product.id]['qty'] }}{% else %}1{% endif %}"
+                                    >
+                                </div>
+                                    <button type="submit" name="add_cart" class="btn btn-success add_cart">
+                                        Ajouter au panier
+                                    </button>
                             </div>
-                            <button type="submit" name="add_cart" class="btn btn-success add_cart">
-                                Ajouter au panier
-                            </button>
                         </form>
-                    </div>
-                </div>
+                    {{ dump(app.session.get('cart')) }}
                 <br>
-
             </div>
         </div>
         <div id="" class="container-fluid d-flex flex-wrap py-3">

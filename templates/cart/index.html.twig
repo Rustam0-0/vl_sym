@@ -3,18 +3,41 @@
 {% block title %}Hello CartController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% if cart %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Libellé</th>
+            <th>Modèle</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+        </tr>
+        </thead>
+        {% set total =0 %}
+        {% set quantite =0 %}
+        {% for  key,row in cart %}
+    {% if key matches '/^\\d+$/' %}
+        <tr>
+            <td>{{ row.picture }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <a ></a>
+                <a href="" class="">Supprimer</a>
+            </td>
+        </tr>
+    </table>
+        {% set total = total + row.qty*row.price %}
+        {% set quantite = quantite + row.qty %}
+    {% endif %}
+        {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/rustam/vl_sym/src/Controller/CartController.php'|file_link(0) }}">src/Controller/CartController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/rustam/vl_sym/templates/cart/index.html.twig'|file_link(0) }}">templates/cart/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% else %}
+        <div class="col-sm-12 text-center pb-4">
+            <span class="fa fa-shopping-cart fa-10x bgcaddie"></span>
+            <h2>Votre panier est vide</h2>
+        </div>
+    {% endif %}
 {% endblock %}
