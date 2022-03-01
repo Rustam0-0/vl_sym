@@ -21,13 +21,9 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/add", name="cart_add")
      */
-    public function index(SessionInterface $session, ProductRepository $prod, Request $request): Response
+    public function cartAdd(SessionInterface $session, ProductRepository $prod, Request $request): Response
     {
-//        return $this->render('cart/index.html.twig', [
-//            'controller_name' => 'CartController',
-//        ]);
         $cart = $session->get("cart", []);
-
 
         if ($request->getMethod() == 'POST') {
             $product = $prod->find($request->get('id'));
@@ -47,9 +43,32 @@ class CartController extends AbstractController
     }
 
     /**
+     * @Route("/cart/update", name="cart_update")
+     */
+    public function cartUpdate(SessionInterface $session, ProductRepository $prod, Request $request): Response
+    {
+        $cart = $session->get("cart", []);
+        if ($request->getMethod() == 'POST') {
+            $product = $prod->find($request->get('id'));
+            $id = $request->get('id');
+            if($request->get('qty')<=0){
+                unset($cart[$id]);
+            }
+            else{
+                if($request->get('qty')<= $product->getStock()){
+                    $cart[$id]["qty"]=$request->get('qty');
+                }
+            }
+            $session->set("cart", $cart);
+        }
+        $referer = $request->headers->get('referer');
+        return new RedirectResponse($referer);
+    }
+
+    /**
      * @Route("/cart", name="cart")
      */
-    public function cart(CategoryRepository $repocat, SessionInterface $session, ProductRepository $prod, Request $request): Response
+    public function index(CategoryRepository $repocat, SessionInterface $session, ProductRepository $prod): Response
     {
         $cart = $session->get("cart", []);
 

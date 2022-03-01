@@ -7,7 +7,7 @@
     <div id="results" class="container-fluid py-5">
         {% for product in list %}
             <article class="results_product_item">
-                <a href='{{ path('prod_details',{id : product.id}) }}'
+                <a href="{{ path('prod_details',{id : product.id}) }}"
                    class="results_product_item_image_container">
                     <img src="http://localhost/Green/assets/images/PRODUCTS/{{ product.picture }}"
                          alt="{{ product.picture }}" class="results_product_item_image lazyload" />

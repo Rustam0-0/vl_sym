@@ -4,7 +4,7 @@
 
 {% block body %}
     {% if cart %}
-    <table class="table">
+        <table class="table">
         <thead>
         <tr>
             <th>Image</th>
@@ -18,27 +18,64 @@
         {% set total =0 %}
         {% set quantite =0 %}
         {% for  key,row in cart %}
-    {% if key matches '/^\\d+$/' %}
-        <tr>
-            <td><img class="img-fluid img_cart" src="/assets/images/PRODUCTS/{{ row.picture }}"></td>
-            <td>{{ row.label }}</td>
-            <td>{{ row.model }}</td>
-            <td>{{ row.price }}</td>
-            <td>
-                {{ row.qty }}
-            </td>
-            <td><a href="" class="btn-danger">Supprimer</a></td>
-        </tr>
-    </table>
-        {% set total = total + row.qty*row.price %}
-        {% set quantite = quantite + row.qty %}
-    {% endif %}
-        {% endfor %}
+            {% if key matches '/^\\d+$/' %}
+                <tr>
+                    <td>
+                        <a href="{{ path('prod_details',{id : key}) }}">
+                            <img class="img-fluid img_cart" src="/assets/images/PRODUCTS/{{ row.picture }}">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('prod_details',{id : key}) }}">
+                            {{ row.label }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('prod_details',{id : key}) }}">
+                            {{ row.model }}
+                        </a>
+                    </td>
+                    <td>{{ row.price }}</td>
+                    <form action="{{ path('cart_update') }}" method="POST">
+                        <td>
+                            <input hidden name="id" value="{{ key }}">
 
+                            <input type="number" class="form-control" name="qty" id="qty[{{ key }}]"
+                                   value="{{ row.qty }}" min="0" max="{{ row.stock }}" onchange="this.form.submit()">
+                        </td>
+                    </form>
+                    <form action="{{ path('cart_update') }}" method="POST">
+                        <input hidden name="id" value="{{ key }}">
+                        <input hidden class="form-control" name="qty" id="qty[{{ key }}]" value="0">
+                        <td>
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </td>
+                    </form>
+                </tr>
+                {% set total = total + row.qty*row.price %}
+                {% set quantite = quantite + row.qty %}
+            {% endif %}
+        {% endfor %}
+        <tr>
+            <td>
+                <h2>Total ({{ quantite }} article{% if quantite >1 %}s{% endif %}) :</h2>
+            </td>
+            <td></td>
+            <td></td>
+{#            <td></td>#}
+            <td colspan="2" class="text-success">
+                <h2>{{ total }} €</h2>
+            </td>
+            <td>
+                <button type="submit" href="" class="btn-success">Valider</button>
+            </td>
+        </tr>
     {% else %}
-        <div class="col-sm-12 text-center pb-4">
-            <span class="fa fa-shopping-cart fa-10x bgcaddie"></span>
+        <div class="col-sm-12 text-center p-4">
+            <span class=""></span>
             <h2>Votre panier est vide</h2>
+            <h2><a href="{{ path('home') }}">Commencez à le remplir</a></h2>
+            <img class="img-fluid" src="/assets/images/BODY/empty_cart.jpg">
         </div>
     {% endif %}
 {% endblock %}
