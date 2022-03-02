@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+    <h1>Editer Produit</h1>
+    <img class="img-fluid" width="20%" src="/assets/images/PRODUCTS/{{ product.picture }}">
+
+    {{ include('admin_prod/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('admin_prod_index') }}">Retour vers la liste</a>
+
+    {{ include('admin_prod/_delete_form.html.twig') }}
+{% endblock %}

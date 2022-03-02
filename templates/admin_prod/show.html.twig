@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <h1>Produit</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ product.id }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td><img class="img-fluid" width="50%" src="/assets/images/PRODUCTS/{{ product.picture }}"></td>
+        </tr>
+        <tr>
+            <th>Libellé</th>
+            <td>{{ product.label }}</td>
+        </tr>
+        <tr>
+            <th>Modèle</th>
+            <td>{{ product.model }}</td>
+        </tr>
+        <tr>
+            <th>Details</th>
+            <td>{{ product.details | raw }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ product.description | raw }}</td>
+        </tr>
+        <tr>
+            <th>Prix</th>
+            <td>{{ product.price }}</td>
+        </tr>
+        <tr>
+            <th>Stock</th>
+            <td>{{ product.stock }}</td>
+        </tr>
+        <tr>
+            <th>Date d'ajout</th>
+            <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Date de mettre à jour</th>
+            <td>{{ product.dateUpdate ? product.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="container justify-content-between d-flex flex-wrap">
+        <a class="btn btn-secondary" href="{{ path('admin_prod_index') }}">Retour vers la liste</a>
+
+        <a class="btn btn-danger" href="{{ path('admin_prod_edit', {'id': product.id}) }}">Editer</a>
+    </div>
+
+    {{ include('admin_prod/_delete_form.html.twig') }}
+{% endblock %}

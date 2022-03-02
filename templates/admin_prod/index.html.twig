@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Picture</th>
+                <th>Label</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Stock</th>
+{#                <th>Details</th>#}
+{#                <th>Description</th>#}
+{#                <th>Date_add</th>#}
+{#                <th>Date_update</th>#}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td><img class="img-fluid" width="50%" src="/assets/images/PRODUCTS/{{ product.picture }}"></td>
+                <td>{{ product.label }}</td>
+                <td>{{ product.model }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+{#                <td>{{ product.details | raw}}}</td>#}
+{#                <td>{{ product.description | raw}}</td>#}
+{#                <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td>#}
+{#                <td>{{ product.dateUpdate ? product.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>#}
+                <td>
+                    <a href="{{ path('admin_prod_show', {'id': product.id}) }}">Details</a>
+                    <a href="{{ path('admin_prod_edit', {'id': product.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_prod_new') }}">Create new</a>
+{% endblock %}
