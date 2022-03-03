@@ -3,12 +3,14 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
-    <h1>Editer Produit</h1>
-    <img class="img-fluid" width="20%" src="/assets/images/PRODUCTS/{{ product.picture }}">
+    <div class="container p-3 ">
+        <h1>Editer le produit</h1>
+        <img class="img-fluid" width="20%" src="/assets/images/PRODUCTS/{{ product.picture }}">
 
-    {{ include('admin_prod/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        {{ include('admin_prod/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('admin_prod_index') }}">Retour vers la liste</a>
+        <a class="float-right btn btn-secondary" href="{{ path('admin_prod_index') }}">Retour vers la liste</a>
 
-    {{ include('admin_prod/_delete_form.html.twig') }}
+        {{ include('admin_prod/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

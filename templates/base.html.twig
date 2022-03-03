@@ -46,14 +46,21 @@
                 </button>
                 <div class="m-0 p-0 collapse navbar-collapse" id="Demo01">
                     <ul class="navbar-nav mt-2 ">
+                        {% if app.user %}
+                            <li class="nav-link">
+                                <strong>Vous êtes connecté comme {{ app.user.client.name }}</strong>
+                                                            {{ dump(app.user) }}
+                            </li>
+                        {% endif %}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link nav1" href="#">Infos</a>#}
+{#                        </li>#}
                         <li class="nav-link">
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav1" href="#">Infos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="myBtn" class="nav-link nav1" data-toggle="modal" href="#">Espace client</a>
-
+                            {% if app.user %}
+                                <a href="{{ path('app_logout') }}">Déconnexion</a>
+                            {% else %}
+                                <a id="myBtn" class="nav-link nav1" data-toggle="modal" href="#">Espace client</a>
+                            {% endif %}
                             <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content corp">
@@ -76,8 +83,16 @@
                                 </div>
                             </div>
                         </li>
+{#                        {% if cart %}#}
+{#                            {% set total =0 %}#}
+{#                            {% set quantite =0 %}#}
+
+{#                            {% set total = total + row.qty*row.price %}#}
+{#                            {% set quantite = quantite + row.qty %}#}
+{#                        {% endif %}#}
                         <li class="nav-item">
-                            <a class="nav-link pic_cart" href="{{ path('cart') }}"><img src="/assets/images/HEADER/picto panier.png"></a>
+                            <a class="nav-link pic_cart" href="{{ path('cart') }}"><img
+                                        src="/assets/images/HEADER/picto panier.png"></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><img class="" src="/assets/images/HEADER/picto pays.png"></a>
@@ -155,14 +170,14 @@
 
 <script type="text/javascript" src="/assets/script.js"></script>
 
-{# <?php if ($modal == true) { ?>#}
-{# <script>#}
-{#    if ($modal == true)#}
-{#    {#}
-{#        $(document).ready(function()#}
-{#        {#}
-{#            $("#myModal").modal();#}
-{#        });#}
-{#    }#}
-{# </script>#}
-{# <?php } ?>#}
+{# <?php if ($modal == true) { ?> #}
+{# <script> #}
+{#    if ($modal == true) #}
+{#    { #}
+{#        $(document).ready(function() #}
+{#        { #}
+{#            $("#myModal").modal(); #}
+{#        }); #}
+{#    } #}
+{# </script> #}
+{# <?php } ?> #}

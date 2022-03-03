@@ -264,7 +264,6 @@ body {
     transform: scale(1.1);
 }
 
-
 #button_add {
     /* justify-content: center; */
     /* width: 100px;
@@ -383,15 +382,16 @@ body {
     }
 }
 
-
-.quantity {
-    width: 65px;
-    height: 35px;
-    position: relative;
-}
 .img_cart {
     width: 300px;
 }
+
+/*.quantity {*/
+/*    width: 65px;*/
+/*    height: 35px;*/
+/*    position: relative;*/
+/*}*/
+
 /*input[type=number]::-webkit-inner-spin-button,*/
 /*input[type=number]::-webkit-outer-spin-button {*/
 /*    -webkit-appearance: none;*/

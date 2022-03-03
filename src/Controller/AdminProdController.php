@@ -75,6 +75,7 @@ class AdminProdController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $product->setDateUpdate(new \DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_prod_index', [], Response::HTTP_SEE_OTHER);

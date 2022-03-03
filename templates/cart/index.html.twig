@@ -39,7 +39,6 @@
                     <form action="{{ path('cart_update') }}" method="POST">
                         <td>
                             <input hidden name="id" value="{{ key }}">
-
                             <input type="number" class="form-control" name="qty" id="qty[{{ key }}]"
                                    value="{{ row.qty }}" min="0" max="{{ row.stock }}" onchange="this.form.submit()">
                         </td>
@@ -62,7 +61,6 @@
             </td>
             <td></td>
             <td></td>
-{#            <td></td>#}
             <td colspan="2" class="text-success">
                 <h2>{{ total }} €</h2>
             </td>
