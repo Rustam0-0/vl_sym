@@ -26,13 +26,14 @@ body {
     }
 }
 
-.pic_cart {
-    block-size: 0px;
-    inline-size: 90%;
-}
+/*.bar {*/
+/*    height: 43px;*/
+/*}*/
 
-.bar {
-    min-height: 38px;
+@media only screen and (min-width: 1024px) {
+    .bar {
+        height: 43px;
+    }
 }
 
 .dropdown-item {
@@ -64,7 +65,7 @@ body {
 }
 
 .nav3 {
-    font-size: 20px;
+    font-size: 18px;
     color: rgb(255, 255, 255);
 }
 
@@ -213,7 +214,8 @@ body {
 }
 
 .quantity {
-    width: 50px;
+    margin-right: 5px;
+    width: 80px;
 }
 
 #main_inner {
@@ -291,7 +293,7 @@ body {
 #button_del {
     position: relative;
     display: inline-block;
-    width: 8em;
+    width: 6em;
     height: 2.5em;
     line-height: 2.5em;
     vertical-align: middle;

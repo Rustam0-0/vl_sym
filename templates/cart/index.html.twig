@@ -4,7 +4,7 @@
 
 {% block body %}
     {% if cart %}
-        <table class="table">
+        <table class="table table-responsive">
         <thead>
         <tr>
             <th>Image</th>
@@ -47,7 +47,7 @@
                         <input hidden name="id" value="{{ key }}">
                         <input hidden class="form-control" name="qty" id="qty[{{ key }}]" value="0">
                         <td>
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                            <button type="submit" id="button_del">Supprimer</button>
                         </td>
                     </form>
                 </tr>
@@ -56,16 +56,16 @@
             {% endif %}
         {% endfor %}
         <tr>
-            <td>
-                <h2>Total ({{ quantite }} article{% if quantite >1 %}s{% endif %}) :</h2>
+            <td colspan="3">
+                <h3>Total ({{ quantite }} article{% if quantite >1 %}s{% endif %}) :</h3>
             </td>
-            <td></td>
-            <td></td>
+{#            <td></td>#}
+{#            <td></td>#}
             <td colspan="2" class="text-success">
-                <h2>{{ total }} €</h2>
+                <h3>{{ total }} €</h3>
             </td>
             <td>
-                <button type="submit" href="" class="btn-success">Valider</button>
+                <button type="submit" href="" class="add_cart">Valider</button>
             </td>
         </tr>
     {% else %}

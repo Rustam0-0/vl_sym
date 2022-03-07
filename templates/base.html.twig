@@ -44,12 +44,12 @@
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="m-0 p-0 collapse navbar-collapse" id="Demo01">
-                    <ul class="navbar-nav mt-2 ">
+                <div class="collapse navbar-collapse" id="Demo01">
+                    <ul class="navbar-nav">
                         {% if app.user %}
                             <li class="nav-link">
                                 <strong>Vous êtes connecté comme {{ app.user.client.name }}</strong>
-                                                            {{ dump(app.user) }}
+{#                                                            {{ dump(app.user) }}#}
                             </li>
                         {% endif %}
 {#                        <li class="nav-item">#}
@@ -83,15 +83,18 @@
                                 </div>
                             </div>
                         </li>
-{#                        {% if cart %}#}
-{#                            {% set total =0 %}#}
-{#                            {% set quantite =0 %}#}
+                        <div>
+                        {% if app.session.get('cart') %}
+                            {% set total = 0 %}
+                            {% for key,row in app.session.get('cart') %}
 
-{#                            {% set total = total + row.qty*row.price %}#}
-{#                            {% set quantite = quantite + row.qty %}#}
-{#                        {% endif %}#}
+                            {% set total = total + app.session.get('cart')[key]["qty"] %}
+                            {% endfor %}
+                            <span class="badge badge-pill badge-danger">{{ total }}</span>
+                        {% endif %}
+                        </div>
                         <li class="nav-item">
-                            <a class="nav-link pic_cart" href="{{ path('cart') }}"><img
+                            <a class="nav-link" href="{{ path('cart') }}"><img
                                         src="/assets/images/HEADER/picto panier.png"></a>
                         </li>
                         <li class="nav-item">
