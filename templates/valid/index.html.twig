@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ValidController!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid text-center py-2">
+        <h3 class="font_color">Adresse de livraison</h3>
+    </div>
+
+    <form action="" method="post" accept-charset="utf-8">
+        <div class="d-flex flex-wrap py-3">
+            <div class="col-lg-6 col-sm-12 px-5">
+                <input type="hidden" name="id" value="">
+                <div class="form-group d-flex flex-wrap">
+                    <label class="control-label col-lg-3 col-sm-12"
+                           for="name">Prénom</label>
+                    <div class="col-lg-9 col-sm-12">
+                        <input class="form-control" type="text"
+                               value="{{ user.client.name }}"
+                               name="name" id="name">
+                        <div class="text-danger">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-flex flex-wrap">
+                    <label class="control-label col-lg-3 col-sm-12"
+                           for="surname">Nom</label>
+                    <div class="col-lg-9 col-sm-12">
+                        <input class="form-control" type="text"
+                               value="{{ user.client.surname }}"
+                               name="surname" id="surname">
+                        <div class="text-danger">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-flex flex-wrap">
+                    <label class="control-label col-lg-3 col-sm-12"
+                           for="address">Adresse</label>
+                    <div class="col-lg-9 col-sm-12">
+                        <input class="form-control" type="text"
+                               value="{{ user.client.address }}"
+                               name="address" id="address">
+                        <div class="text-danger">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 px-5">
+                <div class="form-group d-flex flex-wrap">
+                    <label class="control-label col-lg-3 col-sm-12"
+                           for="zipcode">Code postal</label>
+                    <div class="col-lg-9 col-sm-12">
+                        <input class="form-control" type="text"
+                               value="{{ user.client.zipcode }}"
+                               name="zipcode" id="zipcode">
+                        <div class="text-danger">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-flex flex-wrap">
+                    <label class="control-label col-lg-3 col-sm-12"
+                           for="city">Ville</label>
+                    <div class="col-lg-9 col-sm-12">
+                        <input class="form-control" type="text"
+                               value="{{ user.client.city }}"
+                               name="city" id="city">
+                        <div class="text-danger">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-flex flex-wrap">
+                    <label class="control-label col-lg-3 col-sm-12"
+                           for="country">Pays</label>
+                    <select class="form-control col-lg-9 col-sm-12" name="country" id="country">
+                        {% for country in countries %}
+                            <option class="form-control"
+                                    value="{{ country.id }}">
+                                {{ country.name }}
+                            </option>
+                        {% endfor %}
+                        <div class="text-danger">
+                        </div>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid text-center py-2">
+            <h3 class="font_color">Produits commandés</h3>
+        </div>
+
+        <div class="container d-flex flex-wrap">
+            {% if cart %}
+            {#        {{ dump(app.session.get('cart')) }} #}
+            <div class="col-sm-3 d-none d-sm-block">
+                <strong>Image</strong>
+            </div>
+            <div class="col-sm-3 d-none d-sm-block">
+                <strong>Libellé</strong>
+            </div>
+            <div class="col-sm-3  d-none d-sm-block">
+                <strong>Modèle</strong>
+            </div>
+            <div class="col-sm-2 d-none d-sm-block">
+                <strong>Prix</strong>
+            </div>
+            <div class="col-sm-1 d-none d-sm-block">
+                <strong>Quantité</strong>
+            </div>
+            <hr class="my-4 w-100">
+            {% set total =0 %}
+            {% set quantity =0 %}
+            {% for  key,row in cart %}
+                <div class="col-sm-3 col-12 text">
+                    <a href="{{ path('prod_details', {id : key}) }}">
+                        <img class="img-fluid img_cart" src="/assets/images/PRODUCTS/{{ row.picture }}"
+                             alt="{{ row.picture }}">
+                    </a>
+                </div>
+                <div class="col-sm-3  col-12">
+                    {{ row.label }}
+                </div>
+                <div class="col-sm-3  col-12">
+                    {{ row.model }}
+                </div>
+                <div class="col-sm-2 col-12">
+                    {{ row.price }} €
+                </div>
+                {% set total = total + row.qty*row.price %}
+                {% set quantity = quantity + row.qty %}
+                <div class="col-sm-1 col-12">
+                    {{ row.qty }}
+                </div>
+                <hr class="my-4 w-100">
+            {% endfor %}
+        </div>
+        <div class="container d-flex flex-wrap py-2">
+            <div class="col-sm-6">
+                <h3> Total ({{ quantity }} article{% if quantity >1 %}s{% endif %}) :</h3>
+            </div>
+            <div class="text-success offset-3 col-sm-3"> <h3>{{ total }} €</h3></div>
+        </div>
+
+        {% endif %}
+
+        <div class="text-center py-5">
+            <button type="submit" class="btn valider"
+                    name="save">Valider
+            </button>
+        </div>
+    </form>
+    </div>
+{% endblock %}

@@ -3,7 +3,9 @@
 {% block title %}Hello CartController!{% endblock %}
 
 {% block body %}
+    <div class="container py-2">
     {% if cart %}
+{#        {{ dump(app.session.get('cart')) }}#}
         <table class="table table-responsive">
         <thead>
         <tr>
@@ -16,7 +18,7 @@
         </tr>
         </thead>
         {% set total =0 %}
-        {% set quantite =0 %}
+        {% set quantity =0 %}
         {% for  key,row in cart %}
             {% if key matches '/^\\d+$/' %}
                 <tr>
@@ -52,28 +54,27 @@
                     </form>
                 </tr>
                 {% set total = total + row.qty*row.price %}
-                {% set quantite = quantite + row.qty %}
+                {% set quantity = quantity + row.qty %}
             {% endif %}
         {% endfor %}
         <tr>
             <td colspan="3">
-                <h3>Total ({{ quantite }} article{% if quantite >1 %}s{% endif %}) :</h3>
+                <h3>Total ({{ quantity }} article{% if quantity >1 %}s{% endif %}) :</h3>
             </td>
-{#            <td></td>#}
-{#            <td></td>#}
             <td colspan="2" class="text-success">
                 <h3>{{ total }} €</h3>
             </td>
             <td>
-                <button type="submit" href="" class="add_cart">Valider</button>
+                <a href="{{ path('valid') }}" class="add_cart">Valider</a>
             </td>
         </tr>
     {% else %}
         <div class="col-sm-12 text-center p-4">
             <span class=""></span>
-            <h2>Votre panier est vide</h2>
-            <h2><a href="{{ path('home') }}">Commencez à le remplir</a></h2>
-            <img class="img-fluid" src="/assets/images/BODY/empty_cart.jpg">
+            <p>Votre panier est vide</p>
+            <p><a href="{{ path('home') }}">Commencez à le remplir!</a></p>
+            <img class="img-fluid" width="400" src="/assets/images/BODY/empty_cart.jpg">
         </div>
     {% endif %}
+    </div>
 {% endblock %}
