@@ -10,7 +10,9 @@
     <form action="" method="post" accept-charset="utf-8">
         <div class="d-flex flex-wrap py-3">
             <div class="col-lg-6 col-sm-12 px-5">
-                <input type="hidden" name="id" value="">
+
+                <input type="hidden" name="id" value="{{ user.client.id }}">
+
                 <div class="form-group d-flex flex-wrap">
                     <label class="control-label col-lg-3 col-sm-12"
                            for="name">Prénom</label>

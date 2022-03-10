@@ -28,11 +28,6 @@ class OrderDetail
     private $discount;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
-     */
-    private $total;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderDetails")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -43,6 +38,11 @@ class OrderDetail
      * @ORM\JoinColumn(nullable=false)
      */
     private $orders;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $price;
 
     public function getId(): ?int
     {
@@ -73,18 +73,6 @@ class OrderDetail
         return $this;
     }
 
-    public function getTotal(): ?string
-    {
-        return $this->total;
-    }
-
-    public function setTotal(string $total): self
-    {
-        $this->total = $total;
-
-        return $this;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -105,6 +93,18 @@ class OrderDetail
     public function setOrders(?Order $orders): self
     {
         $this->orders = $orders;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

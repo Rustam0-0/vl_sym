@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Order;
 use App\Entity\OrderDetail;
 use App\Repository\CategoryRepository;
+use App\Repository\ClientRepository;
 use App\Repository\CountryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,18 +21,28 @@ class ValidController extends AbstractController
     /**
      * @Route("/valid", name="valid")
      */
-    public function index(SessionInterface $session, ProductRepository $prod, CountryRepository $repcount, CategoryRepository $repocat, Request $request, EntityManagerInterface $em): Response
+    public function index(ClientRepository $cli, SessionInterface $session, ProductRepository $prod, CountryRepository $repcount, CategoryRepository $repocat, Request $request, EntityManagerInterface $em): Response
     {
         dump($this->getUser());
+
         $categories = $repocat->findAll();
         $list_countries = $repcount->findAll();
+
         $cart = $session->get("cart", []);
         foreach ($cart as $key => $value) {
             $product = $prod->find($key);
             $cart[$key]['price'] = $product->getPrice();
         }
 
+        if (empty($cart)) {
+            return $this->redirectToRoute('home');
+        }
+
+        dump($cart);
+
         if ($request->isMethod("post")) {
+
+            $id = $cli->find($request->get("id"));
             $name = $request->get("name");
             $surname = $request->get("surname");
             $address = $request->get("address");
@@ -41,6 +52,7 @@ class ValidController extends AbstractController
             $countries = $repcount->find($country);
 
             $ord = new Order();
+            $ord->setClient($id);
             $ord->setShipName($name);
             $ord->setShipSurname($surname);
             $ord->setShipAddress($address);
@@ -48,12 +60,22 @@ class ValidController extends AbstractController
             $ord->setShipCity($city);
             $ord->setCountry($countries);
             $ord->setDate(new \DateTime());
-
-            $det = new OrderDetail();
-            $det ->
-
             $em->persist($ord);
-            $em->persist($det);
+
+//            $total =0;
+            foreach ($cart as $key => $value) {
+                $det = new OrderDetail();
+                $product = $prod->find($key);
+                $cart[$key]['price'] = $product->getPrice();
+//                $total += $cart[$key]['price'] * $cart[$key]['qty'];
+                $det->setProduct($product);
+                $det->setQuantity($cart[$key]['qty']);
+                $det->setPrice($cart[$key]['price']);
+                $det->setDiscount(0);
+                $det->setOrders($ord);
+                $em->persist($det);
+            }
+
             $em->flush();
         }
 
