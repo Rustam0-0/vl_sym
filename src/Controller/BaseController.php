@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BaseController extends AbstractController
 {
     /**
-     * @Route("/", name="base")
+     * @Route("base", name="base")
      */
     public function index(CategoryRepository $repocat, ProductRepository $repoprod): Response
     {
