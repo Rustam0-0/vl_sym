@@ -23,7 +23,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'categories' => $categories,
             'list' => $list,
-//            'controller_name' => 'BaseController',
+            'controller_name' => 'BaseController',
         ]);
     }
 }

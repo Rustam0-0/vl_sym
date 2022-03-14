@@ -35,10 +35,10 @@ class ValidController extends AbstractController
         }
 
         if (empty($cart)) {
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('prodlist');
         }
 
-        dump($cart);
+//        dump($cart);
 
         if ($request->isMethod("post")) {
 
@@ -75,10 +75,10 @@ class ValidController extends AbstractController
                 $det->setOrders($ord);
                 $em->persist($det);
             }
-
             $em->flush();
+            $session->set('cart', []);
+            return $this->redirectToRoute('my_orders');
         }
-
         return $this->render('valid/index.html.twig', [
             'categories' => $categories,
             'countries' => $list_countries,

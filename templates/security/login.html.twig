@@ -3,8 +3,8 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <div class="container d-flex py-3">
-        <div class="col-lg-6 col-sm-12 modal_left">
+    <div class="container row py-3">
+        <div class="col-md-6 col-sm-12 pb-2">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -17,7 +17,7 @@
                     </div>
                 {% endif %}
 
-                <h1 class="h3 mb-3 font-weight-normal">Etes-vous déjà clients chez nous?</h1>
+                <h3 class="mb-3 font-weight-normal">Etes-vous déjà clients chez nous?</h3>
                 <label for="inputEmail">Email</label>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
                        autocomplete="email" required autofocus><br>
@@ -43,11 +43,11 @@
                 </button>
             </form>
         </div>
-        <div class="vr">
-            <div></div>
-        </div>
-        <div class="col-lg-6 col-sm-12" style="line-height: 48.5px">
-            <h1 class="h3 mb-3 font-weight-normal">N’êtes-vous pas encore client?</h1>
+{#        <div class="vr">#}
+{#            <div></div>#}
+{#        </div>#}
+        <div class="col-md-6 col-sm-12" style="line-height: 50px" >
+            <h3 class="">N’êtes-vous pas encore client?</h3>
             <p>En tant que client Village Green
                 vous pouvez suivre vos envoies,
                 lire des tests produits exclusifs,
