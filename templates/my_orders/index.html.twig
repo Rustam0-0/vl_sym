@@ -8,58 +8,58 @@
     </div>
 
     <div class="container d-flex flex-wrap">
-            {#        {{ dump(app.session.get('cart')) }} #}
-            <div class="col-sm-1 d-none d-sm-block">
-                <strong>N°</strong>
-            </div>
-            <div class="col-sm-2 d-none d-sm-block">
-                <strong>Date</strong>
-            </div>
-            <div class="col-sm-3 d-none d-sm-block">
-                <strong>Libellé</strong>
-            </div>
-            <div class="col-sm-3  d-none d-sm-block">
-                <strong>Modèle</strong>
-            </div>
-            <div class="col-sm-2 d-none d-sm-block">
-                <strong>Prix</strong>
-            </div>
-            <div class="col-sm-1 d-none d-sm-block">
-                <strong>Quantité</strong>
-            </div>
-            <hr class="my-4 w-100">
+        {#        {{ dump(app.session.get('cart')) }} #}
+        <div class="col-sm-1 d-none d-sm-block">
+            <strong>N°</strong>
+        </div>
+        <div class="col-sm-2 d-none d-sm-block">
+            <strong>Date</strong>
+        </div>
+        <div class="col-sm-3 d-none d-sm-block">
+            <strong>Libellé</strong>
+        </div>
+        <div class="col-sm-3  d-none d-sm-block">
+            <strong>Modèle</strong>
+        </div>
+        <div class="col-sm-2 d-none d-sm-block">
+            <strong>Prix</strong>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block">
+            <strong>Quantité</strong>
+        </div>
+        <hr class="my-4 w-100">
 
-            {% for row in orders %}
-                <div  class="col-12">
-                    <h3>
+        {% for row in orders %}
+            <div class="col-12">
+                <h3>
                     {{ row.id }}
-                    </h3>
-                    <a href="{{ path('ord_det', {'order': row.id}) }}">Facture</a>
+                </h3>
+                <a href="{{ path('ord_det', {'order': row.id}) }}">Facture</a>
+            </div>
+            {% for ode in row.orderDetails %}
+                <div class="col-sm-1 col-12 text">
+                    {#                        {{ ode.id }} #}
+                    {#                       {{  dump(ode) }} #}
                 </div>
-                {% for ode in row.orderDetails %}
-                    <div class="col-sm-1 col-12 text">
-{#                        {{ ode.id }}#}
-{#                       {{  dump(ode) }}#}
-                    </div>
-                    <div class="col-sm-2  col-12">
-                        {{ row.date |date('Y-m-d')}}
-                    </div>
-                    <div class="col-sm-3  col-12">
-                        {{ ode.product.label }}
-                    </div>
-                    <div class="col-sm-3  col-12">
-                        {{ ode.product.model }}
-                    </div>
-                    <div class="col-sm-2 col-12">
-                        {{ ode.price }} €
-                    </div>
-{#                    {% set total = total + row.qty*row.price %}#}
-{#                    {% set quantity = quantity + row.qty %}#}
-                    <div class="col-sm-1 col-12">
-                        {{ ode.quantity }}
-                    </div>
-                    <hr class="my-4 w-100">
-                {% endfor %}
+                <div class="col-sm-2  col-12">
+                    {{ row.date |date('Y-m-d') }}
+                </div>
+                <div class="col-sm-3  col-12">
+                    {{ ode.product.label }}
+                </div>
+                <div class="col-sm-3  col-12">
+                    {{ ode.product.model }}
+                </div>
+                <div class="col-sm-2 col-12">
+                    {{ ode.price }} €
+                </div>
+                {#                    {% set total = total + row.qty*row.price %} #}
+                {#                    {% set quantity = quantity + row.qty %} #}
+                <div class="col-sm-1 col-12">
+                    {{ ode.quantity }}
+                </div>
+                <hr class="my-4 w-100">
             {% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}
