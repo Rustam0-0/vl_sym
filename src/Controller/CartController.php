@@ -82,7 +82,6 @@ class CartController extends AbstractController
             'categories' => $categories,
             'cart' => $cart,
         ]);
-
     }
 
 

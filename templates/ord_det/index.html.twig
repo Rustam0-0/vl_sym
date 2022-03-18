@@ -5,21 +5,23 @@
 {% block body %}
 
 
-    {{ dump(order) }}
+{#    {{ dump(order) }}#}
     <div class="container">
 
     <caption> Facture N°{{ order.id }}</caption>
+
+        <a href="{{ path('bill', {order:order.id}) }}">pdf</a>
     <table class="table table-responsive">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Libellé</th>
-            <th>Modèle</th>
-            <th>Prix HT</th>
+            <th width="15%">Libellé</th>
+            <th width="15%">Modèle</th>
+            <th><nobr>Prix HT,€</nobr></th>
             <th>Quantité</th>
-            <th>Total HT</th>
-            <th>TVA</th>
-            <th>Total TTC</th>
+            <th><nobr>Total HT,€</nobr></th>
+            <th><nobr>TVA, €</nobr></th>
+            <th><nobr>Total TTC,€</nobr></th>
         </tr>
         </thead>
         <tbody>
@@ -34,16 +36,16 @@
                 <td>{{ od.id }}</td>
                 <td>{{ od.product.label }}</td>
                 <td>{{ od.product.model }}</td>
-                <td style="text-align: right">{{ od.price|number_format(2, '.', ' ') }} €</td>
+                <td style="text-align: right"><nobr>{{ od.price|number_format(2, '.', ' ') }}</nobr></td>
                 <td style="text-align: center">{{ od.quantity }}</td>
 
                 {% set total = od.price * od.quantity %}
-                <td style="text-align: right">{{ total|number_format(2, '.', ' ')}} €</td>
+                <td style="text-align: right"><nobr>{{ total|number_format(2, '.', ' ')}}</nobr></td>
 
                 {% set tva = total *0.2 %}
-                <td style="text-align: right">{{ tva|number_format(2, '.', ' ') }} €</td>
+                <td style="text-align: right"><nobr>{{ tva|number_format(2, '.', ' ') }}</nobr></td>
 
-                <td style="text-align: right">{{ (total + tva)|number_format(2, '.', ' ') }} €</td>
+                <td style="text-align: right"><nobr>{{ (total + tva)|number_format(2, '.', ' ') }}</nobr></td>
 
                 {% set total_cart = total_cart + total %}
                 {% set total_tva = total_tva + tva %}
@@ -53,9 +55,9 @@
         </tbody>
         <tfoot>
             <th style="text-align: right" colspan="5">TOTAL</th>
-            <td style="text-align: right">{{ total_cart|number_format(2, '.', ' ') }} €</td>
-            <td style="text-align: right">{{ total_tva|number_format(2, '.', ' ') }} €</td>
-            <td style="text-align: right">{{ (total_cart+total_tva)|number_format(2, '.', ' ') }} €</td>
+            <td style="text-align: right"><nobr>{{ total_cart|number_format(2, '.', ' ') }}</nobr></td>
+            <td style="text-align: right"><nobr>{{ total_tva|number_format(2, '.', ' ') }}</nobr></td>
+            <td style="text-align: right"><nobr>{{ (total_cart+total_tva)|number_format(2, '.', ' ') }}</nobr></td>
         </tr>
         </tfoot>
 
