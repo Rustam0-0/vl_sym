@@ -3,7 +3,16 @@
 
 {% block body %}
 
-    {#{{ dump(list) }}#}
+    {{ dump(list[0].subcat.products) }}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
+{#            {% if (list.products|first) %}#}
+            <li class="breadcrumb-item"><a href="{{ path('subcatlist', { id: list[0].subcat.category.id}) }}" >{{ list[0].subcat.category.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ list[0].subcat.name }}</li>
+{#            {% endif %}#}
+        </ol>
+    </nav>
     <div id="results" class="container-fluid py-5">
         {% for product in list %}
             <article class="results_product_item">

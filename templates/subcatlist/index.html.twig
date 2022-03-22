@@ -4,16 +4,21 @@
 {% block body %}
 
     {{ dump(list) }}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ list[0].category.name }}</li>
+        </ol>
+    </nav>
     <div id="results" class="container-fluid py-5">
         {% for subcat in list %}
-{#            {% for pic in prodpic %}#}
             <article class="results_product_item">
                 <a href="{{ path('prodlist2', { id: subcat.id}) }}"
                    class="results_product_item_image_container" title="">
-{#                    {{ dump(subcat.products|first).picture) }}#}
+                    {#                    {{ dump(subcat.products|first).picture) }} #}
                     {% if (subcat.products|first) %}
-                    <img src="/assets/images/PRODUCTS/{{ (subcat.products|first).picture }}"
-                         alt="" class="results_product_item_image lazyload" />
+                        <img src="/assets/images/PRODUCTS/{{ (subcat.products|first).picture }}"
+                             alt="" class="results_product_item_image lazyload"/>
                     {% endif %}
                 </a>
                 <div class="results_product_item_content">
@@ -23,7 +28,6 @@
                     </a>
                 </div>
             </article>
-{#            {% endfor %}#}
         {% endfor %}
     </div>
 {% endblock %}

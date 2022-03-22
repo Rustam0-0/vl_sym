@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{#    {{ dump(product) }}#}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('subcatlist', { id: product.subcat.category.id}) }}" >{{ product.subcat.category.name }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('prodlist2', { id: product.subcat.id}) }}" >{{ product.subcat.name }}</a></li>
+        </ol>
+    </nav>
     <div class="container-fluid py-5">
-        <div class="container-fluid py-2 text-center">
-            <a href="{{ path('prodlist3', {id : product.subcat.category.id}) }}">{{ product.subcat.category.name }}</a>
-            //
-            <a href="{{ path('prodlist2', {id : product.subcat.id}) }}">{{ product.subcat.name }} </a>
-        </div>
         <div class="container-fluid">
             <h3 id="details_name" data-editor-type="product-name">
                 {{ product.label }} {{ product.model }}
