@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\SubcatRepository;
@@ -22,7 +23,7 @@ class SubcatlistController extends AbstractController
 
         return $this->render('subcatlist/index.html.twig', [
             'categories' => $categories,
-            'list' => $list
+            'list' => $list,
         ]);
     }
 }

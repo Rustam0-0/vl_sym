@@ -3,14 +3,18 @@
 
 {% block body %}
 
-    {#{{ dump(list) }}#}
+    {{ dump(list) }}
     <div id="results" class="container-fluid py-5">
         {% for subcat in list %}
+{#            {% for pic in prodpic %}#}
             <article class="results_product_item">
                 <a href="{{ path('prodlist2', { id: subcat.id}) }}"
                    class="results_product_item_image_container" title="">
-{#                    <img src="/assets/images/PRODUCTS/{{ subcat.product.picture }}"#}
-{#                         alt="" class="results_product_item_image lazyload" />#}
+{#                    {{ dump(subcat.products|first).picture) }}#}
+                    {% if (subcat.products|first) %}
+                    <img src="/assets/images/PRODUCTS/{{ (subcat.products|first).picture }}"
+                         alt="" class="results_product_item_image lazyload" />
+                    {% endif %}
                 </a>
                 <div class="results_product_item_content">
                     <a href="{{ path('prodlist2', { id: subcat.id}) }}"
@@ -19,6 +23,7 @@
                     </a>
                 </div>
             </article>
+{#            {% endfor %}#}
         {% endfor %}
     </div>
 {% endblock %}
