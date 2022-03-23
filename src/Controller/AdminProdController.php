@@ -40,10 +40,22 @@ class AdminProdController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($product);
-            $entityManager->flush();
+            $product->setDateAdd(new \DateTime());
+//            dd($request);
+            $aMimeTypes = array("image/gif", "image/jpeg", "image/jpg", "image/png", "image/x-png", "image/tiff");
+            //   $img = ['product']['photo'];
+            $objfichier = $request->files->get('product');
+            $fichier = $objfichier['picture'];
 
-            return $this->redirectToRoute('admin_prod_index', [], Response::HTTP_SEE_OTHER);
+            if (in_array($fichier->getClientmimeType(), $aMimeTypes)) {
+                if ($fichier->move('assets/images/PRODUCTS/', $fichier->getClientOriginalName())) {
+                    $product->setPicture($fichier->getClientOriginalName());
+                    $entityManager->persist($product);
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('admin_prod_index', [], Response::HTTP_SEE_OTHER);
+                }
+            }
         }
 
         return $this->renderForm('admin_prod/new.html.twig', [
@@ -94,7 +106,10 @@ class AdminProdController extends AbstractController
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager, CategoryRepository $repocat): Response
     {
         $categories = $repocat->findAll();
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
+            if ($product->getPicture()) {
+                unlink('assets/images/PRODUCTS/' . $product->getPicture());
+            }
             $entityManager->remove($product);
             $entityManager->flush();
         }
