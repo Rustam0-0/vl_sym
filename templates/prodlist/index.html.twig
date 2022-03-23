@@ -3,15 +3,21 @@
 
 {% block body %}
 
-    {{ dump(list[0].subcat.products) }}
+    {#    {{ dump((list|first)) }} #}
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
-{#            {% if (list.products|first) %}#}
-            <li class="breadcrumb-item"><a href="{{ path('subcatlist', { id: list[0].subcat.category.id}) }}" >{{ list[0].subcat.category.name }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ list[0].subcat.name }}</li>
-{#            {% endif %}#}
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
+    {% if (list|first) %}
+        <li class="breadcrumb-item"><a
+                    href="{{ path('subcatlist', { id: (list|first).subcat.category.id}) }}">{{ (list|first).subcat.category.name }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ (list|first).subcat.name }}</li>
+    {% else %}
         </ol>
+        </nav>
+        <h3 style="text-align: center">Ce produit n'exist pas</h3>
+    {% endif %}
+    </ol>
     </nav>
     <div id="results" class="container-fluid py-5">
         {% for product in list %}
@@ -19,7 +25,7 @@
                 <a href="{{ path('prod_details',{id : product.id}) }}"
                    class="results_product_item_image_container">
                     <img src="http://localhost/Green/assets/images/PRODUCTS/{{ product.picture }}"
-                         alt="{{ product.picture }}" class="results_product_item_image lazyload" />
+                         alt="{{ product.picture }}" class="results_product_item_image lazyload"/>
                 </a>
                 <div class="results_product_item_content">
                     <div class="results_product_item_category">

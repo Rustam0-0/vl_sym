@@ -1,0 +1,121 @@
+<style>
+    .table {
+        width: 100%;
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    .table thead th {
+        font-weight: bold;
+        text-align: left;
+        border: none;
+        padding: 10px 15px;
+        background: #d8d8d8;
+        font-size: 14px;
+        /*border-left: 1px solid #ddd;*/
+        /*border-right: 1px solid #ddd;*/
+    }
+
+    .table tbody td {
+        text-align: left;
+        /*border-left: 1px solid #ddd;*/
+        /*border-right: 1px solid #ddd;*/
+        padding: 10px 15px;
+        font-size: 14px;
+        vertical-align: top;
+    }
+
+    .table thead tr th:first-child, .table tbody tr td:first-child {
+        border-left: none;
+    }
+
+    .table thead tr th:last-child, .table tbody tr td:last-child {
+        border-right: none;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background: #f3f3f3;
+    }
+</style>
+{% block body %}
+    {#    {{ dump(order) }} #}
+
+    <div class="container d-flex flex-wrap">
+        <div class="logo col-4 align-self-start col-4">
+            <img src="public/assets/images/HEADER/logo.png">
+            <img src="{{ asset('/assets/images/HEADER/logo.png') }}">
+
+        </div>
+        <div class="col-8">
+        <h2>Facture N°  {{ order.id }}</h2>
+        </div>
+    </div>
+
+    <div class="container">
+{#    <caption> Facture N°{{ order.id }}</caption>#}
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th width="15%">Libellé</th>
+            <th width="15%">Modèle</th>
+            <th>Quantité</th>
+            <th>
+                <nobr>Prix HT,€</nobr>
+            </th>
+            <th>
+                <nobr>TVA, €</nobr>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set total = 0 %}
+        {% set total_cart = 0 %}
+        {% set total_tva = 0 %}
+        {#        {% set total_ttc = 0 %} #}
+        {% set quantity = 0 %}
+        {% set row_count = 0 %}
+        {% for od in order.orderDetails %}
+            <tr>
+                <td>{{ od.id }}</td>
+                <td>{{ od.product.label }}</td>
+                <td>{{ od.product.model }}</td>
+                <td style="text-align: center">{{ od.quantity }}</td>
+                <td style="text-align: right">
+                    <nobr>{{ od.price|number_format(2, '.', ' ') }}</nobr>
+                </td>
+                {% set total = od.price * od.quantity %}
+                {% set tva = total *0.2 %}
+                <td style="text-align: right">
+                    <nobr>{{ tva|number_format(2, '.', ' ') }}</nobr>
+                </td>
+                {% set total_cart = total_cart + total %}
+                {% set total_tva = total_tva + tva %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tr>
+            <td width="80%" style="text-align: right">TOTAL</td>
+            <td style="text-align: right">
+                <nobr>{{ total_cart|number_format(2, '.', ' ') }} €</nobr>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">TVA</td>
+            <td style="text-align: right">
+                <nobr>{{ total_tva|number_format(2, '.', ' ') }} €</nobr>
+            </td>
+        </tr>
+        <tr>
+            <th style="text-align: right">TOTAL TTC</th>
+            <td style="text-align: right">
+                <strong>
+                    <nobr>{{ (total_cart+total_tva)|number_format(2, '.', ' ') }} €</nobr>
+                </strong>
+            </td>
+        </tr>
+    </table>
+
+{% endblock %}
