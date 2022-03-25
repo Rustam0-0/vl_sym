@@ -4,7 +4,9 @@
 
 {% block body %}
     <h1>Liste de produits</h1>
-
+    {% for flash_success in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ flash_success }}</div>
+    {% endfor %}
     <a id='button_add' class='btn btn-lg' href="{{ path('admin_prod_new') }}">Ajouter un produit</a>
 
     <table class="table">
@@ -37,8 +39,9 @@
 {#                <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td>#}
 {#                <td>{{ product.dateUpdate ? product.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>#}
                 <td>
-                    <a href="{{ path('admin_prod_show', {'id': product.id}) }}">Details</a>
+                    <a style="color: #0c9c0d" href="{{ path('admin_prod_show', {'id': product.id}) }}">Details</a>
                     <a href="{{ path('admin_prod_edit', {'id': product.id}) }}">Editer</a>
+{#                    <a href="{{ path('admin_prod_delete', {'id': product.id}) }}">Supprimer</a>#}
                 </td>
             </tr>
         {% else %}

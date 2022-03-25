@@ -63,17 +63,17 @@ class ClientType extends AbstractType
                 'label' => 'Prénom',
                 'constraints' => [
                     new NotBlank(),
-                    new Regex('/^[a-zA-Z]{2,}$/')
+                    new Regex("/^[a-zA-Z'-]{2,}$/")
                 ],
-                'attr' => ['class' => 'form-control', 'required' => true]
+                'attr' => ['class' => 'form-control'], 'required' => true
             ])
             ->add('surname', TextType::class, [
                 'label' => 'Nom',
                 'constraints' => [
                     new NotBlank(),
-                    new Regex('/[a-zA-Z]{2,}$/')
+                    new Regex("/^[a-zA-Z'-]{2,}$/")
                 ],
-                'attr' => ['class' => 'form-control', 'required' => true]
+                'attr' => ['class' => 'form-control'], 'required' => true
             ])
             ->add('address', TextType::class, [
                 'label' => 'Adresse',
@@ -81,7 +81,7 @@ class ClientType extends AbstractType
                     new NotBlank(),
                     new Regex('/[a-zA-Z0-9]{2,}$/')
                 ],
-                'attr' => ['class' => 'form-control', 'required' => true]
+                'attr' => ['class' => 'form-control'], 'required' => true
             ])
             ->add('address_complete', TextType::class, [
                 'label' => 'Complément d\'adresse',
@@ -89,7 +89,7 @@ class ClientType extends AbstractType
 //                    new NotBlank(),
                     new Regex('/[a-zA-Z0-9]$/')
                 ],
-                'attr' => ['class' => 'form-control', 'required' => false]
+                'attr' => ['class' => 'form-control'], 'required' => false
             ])
             ->add('zipcode', TextType::class, [
                 'label' => 'Code postal',
@@ -97,7 +97,7 @@ class ClientType extends AbstractType
                     new NotBlank(),
                     new Regex('/[0-9]{2,15}$/')
                 ],
-                'attr' => ['class' => 'form-control', 'required' => true]
+                'attr' => ['class' => 'form-control'], 'required' => true
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
@@ -105,7 +105,7 @@ class ClientType extends AbstractType
                     new NotBlank(),
                     new Regex('/[a-zA-Z]{2,}$/')
                 ],
-                'attr' => ['class' => 'form-control', 'required' => true]
+                'attr' => ['class' => 'form-control'], 'required' => true
             ])
             ->add('country', EntityType::class, [
                 'label' => 'Pays',

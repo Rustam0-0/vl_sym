@@ -60,7 +60,7 @@ class SingupController extends AbstractController
 
 
             // ... perform some action, such as saving the task to the database
-
+            $this->addFlash('success', 'Vous êtes bien inscri. Veuillez vous êntrer avec vos Email et mot de passe!');
             return $this->redirectToRoute('home');
         }
 

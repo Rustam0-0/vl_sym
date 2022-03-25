@@ -5,12 +5,19 @@
 {% block body %}
     <div class="container p-3 ">
         <h1>Editer le produit</h1>
+
         <img class="img-fluid" width="20%" src="/assets/images/PRODUCTS/{{ product.picture }}">
 
         {{ include('admin_prod/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-        <a class="float-right btn btn-secondary" href="{{ path('admin_prod_index') }}">Retour vers la liste</a>
+        <div class="container justify-content-between d-flex flex-wrap py-2">
+            <a class="btn btn-secondary" href="{{ path('admin_prod_index') }}">Retour</a>
+            <form method="post" action="{{ path('admin_prod_delete', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
 
-        {{ include('admin_prod/_delete_form.html.twig') }}
+{#        {{ include('admin_prod/_delete_form.html.twig') }}#}
     </div>
 {% endblock %}

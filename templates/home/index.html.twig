@@ -3,6 +3,9 @@
 {% block title %}Village Green{% endblock %}
 
 {% block body %}
+    {% for flash_success in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ flash_success }}</div>
+    {% endfor %}
     <div class="container">
         <div class="row p-4">
             <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">

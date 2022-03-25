@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use Dompdf\Css\Stylesheet;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +24,7 @@ class BillController extends AbstractController
             'order' => $order,
         ]);
         $dompdf->loadHtml($html);
+        $dompdf->setCss(new Stylesheet($dompdf));
         $dompdf->setPaper('A4', 'portrait');
         $context = stream_context_create([
             'ssl' => [

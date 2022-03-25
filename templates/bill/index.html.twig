@@ -1,3 +1,10 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> #}
+    <link href="/assets/style.css" type="text/css" rel="stylesheet">
+</head>
 <style>
     .table {
         width: 100%;
@@ -37,21 +44,33 @@
         background: #f3f3f3;
     }
 </style>
-{% block body %}
-    {#    {{ dump(order) }} #}
+{#    {{ dump(order) }} #}
 
-    <div class="container d-flex flex-wrap">
-        <div class="logo col-4 align-self-start">
-            <img src="/assets/images/HEADER/logo.png">
-            <img src="{{ asset('/assets/images/HEADER/logo.png') }}">
-        </div>
-        <div class="col-8">
-        <h2>Facture N°  {{ order.id }}</h2>
-        </div>
+<div class="container d-flex flex-wrap">
+    <div class="logo col-4 align-self-start">
+        {#            <img src="/assets/images/HEADER/logo.png"> #}
+        <img src="{{ asset('/assets/images/HEADER/logo.png') }}">
     </div>
+    <div class="col-4 offset-4">
+        <p>Facture N° {{ order.id }}</p>
+        <p>Date de facturation: {{ order.date|date('Y-m-d') }}</p>
+    </div>
+</div>
+<div class="container d-flex flex-wrap">
+    <div class="col-5">
+        <p>DESTINATAIRE</p>
+        {#            {{  }} #}
 
-    <div class="container">
-{#    <caption> Facture N°{{ order.id }}</caption>#}
+    </div>
+    <div class="col-4 offset-1">
+        <p>VILLAGE GREEN</p>
+        <p></p>
+    </div>
+</div>
+
+
+<div class="container">
+    {#    <caption> Facture N°{{ order.id }}</caption> #}
     <table class="table table-responsive">
         <thead>
         <tr>
@@ -116,5 +135,5 @@
             </td>
         </tr>
     </table>
-
-{% endblock %}
+</div>
+</html>
