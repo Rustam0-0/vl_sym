@@ -46,32 +46,58 @@
 </style>
 {#    {{ dump(order) }} #}
 
-<div class="container d-flex flex-wrap">
-    <div class="logo col-4 align-self-start">
-        {#            <img src="/assets/images/HEADER/logo.png"> #}
-        <img src="{{ asset('/assets/images/HEADER/logo.png') }}">
-    </div>
-    <div class="col-4 offset-4">
-        <p>Facture N° {{ order.id }}</p>
-        <p>Date de facturation: {{ order.date|date('Y-m-d') }}</p>
-    </div>
-</div>
-<div class="container d-flex flex-wrap">
-    <div class="col-5">
-        <p>DESTINATAIRE</p>
-        {#            {{  }} #}
+{#<div class="container d-flex flex-wrap">#}
+{#    <div class="col-6 align-self-start">#}
+{#        #}{#            <img src="/assets/images/HEADER/logo.png"> #}
+{#        <img src="{{ asset('/assets/images/HEADER/logo.png') }}">#}
+{#    </div>#}
+{#    <div class="col-4 offset-2">#}
+{#        <h1>Facture N° {{ order.id }}</h1>#}
+{#        <p>Date de facturation: {{ order.date|date('Y-m-d') }}</p>#}
+{#    </div>#}
+{#</div>#}
+{#<div class="container d-flex flex-wrap">#}
+{#    <div class="col-6">#}
+{#        <p>DESTINATAIRE</p>#}
+{#        #}{# {{  }} #}
+{#    </div>#}
+{#    <div class="col-4 offset-2">#}
+{#        <p>VILLAGE GREEN</p>#}
+{#        <p></p>#}
+{#    </div>#}
+{#</div>#}
 
-    </div>
-    <div class="col-4 offset-1">
-        <p>VILLAGE GREEN</p>
-        <p></p>
-    </div>
-</div>
+<table class="table">
+    <tr>
+        <td width="60%">
+            <img src="{{ asset('/assets/images/HEADER/logo.png') }}">
+            <img src="https://image.spreadshirtmedia.net/image-server/v1/mp/compositions/T917A1MPA3771PT17X1Y57D141069657FS10261Cx000000:xD41C3B/views/1,width=550,height=550,appearanceId=1,backgroundColor=FFFFFF,noPt=true/casse-couilles-a-temps-complet-connasse-humour-debardeur-premium-femme.jpg">
+        </td>
+        <td>
+            <h2>Facture N° {{ order.id }}</h2>
+            <h3>Date de facturation: {{ order.date|date('Y-m-d') }}</h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="60%">
+            <h3>DESTINATAIRE</h3>
+            <p>{{ order.client.name }} {{ order.client.surname }}</p>
+            <p>{{ order.client.address }}, {{ order.client.zipcode }} {{ order.client.city }}</p>
+        </td>
+        <td>
+            <h3>VILLAGE GREEN</h3>
+            <p>[Adresse]</p>
+            <p>SIRET: [SIRET]</p>
+            <p>No de TVA: [Numéro de TVA]</p>
+            <p>[Téléphone]</p>
+        </td>
+    </tr>
+</table>
 
 
 <div class="container">
     {#    <caption> Facture N°{{ order.id }}</caption> #}
-    <table class="table table-responsive">
+    <table class="table">
         <thead>
         <tr>
             <th>ID</th>
@@ -132,6 +158,15 @@
                 <strong>
                     <nobr>{{ (total_cart+total_tva)|number_format(2, '.', ' ') }} €</nobr>
                 </strong>
+            </td>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td width="50%">
+                <p>[Nom de la banque]</p>
+                <p>SWIFT/BIC: [SWIFT/BIC]</p>
+                <p>Numéro de compte bancaire: [Compte bancaire (IBAN)]</p>
             </td>
         </tr>
     </table>

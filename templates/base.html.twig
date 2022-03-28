@@ -49,19 +49,23 @@
                         {% if app.user %}
                             <li class="nav-link">
                                 <strong>Vous êtes connecté comme
-                                    <a href="{{ path('my_orders') }}">
+
+                                    <a style="color: #D77206"
+                                            {% if app.user.roles and app.user.roles[0]=="ROLE_ADMIN" %}
+                                                href="{{ path('admin_prod_index') }}"
+                                            {% elseif app.user.roles and app.user.roles[0]=="ROLE_CLIENT" %}
+                                                href="{{ path('my_orders') }}"
+                                            {% endif %}
+                                    >
                                         {{ app.user.client.name }}
+                                        <i class="fa-solid fa-user-check" style="font-size: 20px"></i>
                                     </a>
                                 </strong>
-                                {#                                                            {{ dump(app.user) }} #}
                             </li>
                         {% endif %}
-                        {#                        <li class="nav-item"> #}
-                        {#                            <a class="nav-link nav1" href="#">Infos</a> #}
-                        {#                        </li> #}
                         <li class="nav-link">
                             {% if app.user %}
-                                <a href="{{ path('app_logout') }}">Déconnexion</a>
+                                <a href="{{ path('app_logout') }}" style="color: darkred">Déconnexion</a>
                             {% else %}
                                 <a class="nav-link nav1" href="{{ path('app_login') }}">Espace client</a>
                             {% endif %}
@@ -88,7 +92,6 @@
             </div>
         </nav>
     </div>
-
     <div class="justify-content-between">
         <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
             <div class="bar ml-auto">
@@ -142,8 +145,10 @@
         </nav>
     </div>
 
+    {{ dump(app.user) }}
 
     {% block body %}{% endblock %}
+
 </div>
 </body>
 </html>
@@ -152,6 +157,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/10efd45e1d.js" crossorigin="anonymous"></script>
 
 
 <script type="text/javascript" src="/assets/script.js"></script>

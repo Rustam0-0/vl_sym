@@ -3,14 +3,15 @@
 {% block title %}Liste de produits{% endblock %}
 
 {% block body %}
-    <h1>Liste de produits</h1>
-    {% for flash_success in app.flashes('success') %}
-        <div class="alert alert-success" role="alert">{{ flash_success }}</div>
-    {% endfor %}
-    <a id='button_add' class='btn btn-lg' href="{{ path('admin_prod_new') }}">Ajouter un produit</a>
+    <div class="container">
+        <h1>Liste de produits</h1>
+        {% for flash_success in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">{{ flash_success }}</div>
+        {% endfor %}
+        <a id='button_add' class='btn btn-lg' href="{{ path('admin_prod_new') }}">Ajouter un produit</a>
 
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Picture</th>
@@ -18,37 +19,38 @@
                 <th>Model</th>
                 <th>Price</th>
                 <th>Stock</th>
-{#                <th>Details</th>#}
-{#                <th>Description</th>#}
-{#                <th>Date_add</th>#}
-{#                <th>Date_update</th>#}
+                {#                <th>Details</th> #}
+                {#                <th>Description</th> #}
+                {#                <th>Date_add</th> #}
+                {#                <th>Date_update</th> #}
                 <th>actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td><img class="img-fluid" width="50%" src="/assets/images/PRODUCTS/{{ product.picture }}"></td>
-                <td>{{ product.label }}</td>
-                <td>{{ product.model }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.stock }}</td>
-{#                <td>{{ product.details | raw}}}</td>#}
-{#                <td>{{ product.description | raw}}</td>#}
-{#                <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td>#}
-{#                <td>{{ product.dateUpdate ? product.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>#}
-                <td>
-                    <a style="color: #0c9c0d" href="{{ path('admin_prod_show', {'id': product.id}) }}">Details</a>
-                    <a href="{{ path('admin_prod_edit', {'id': product.id}) }}">Editer</a>
-{#                    <a href="{{ path('admin_prod_delete', {'id': product.id}) }}">Supprimer</a>#}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td><img class="img-fluid" width="50%" src="/assets/images/PRODUCTS/{{ product.picture }}"></td>
+                    <td>{{ product.label }}</td>
+                    <td>{{ product.model }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.stock }}</td>
+                    {#                <td>{{ product.details | raw}}}</td> #}
+                    {#                <td>{{ product.description | raw}}</td> #}
+                    {#                <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td> #}
+                    {#                <td>{{ product.dateUpdate ? product.dateUpdate|date('Y-m-d H:i:s') : '' }}</td> #}
+                    <td>
+                        <a style="color: #0c9c0d" href="{{ path('admin_prod_show', {'id': product.id}) }}">Details</a>
+                        <a href="{{ path('admin_prod_edit', {'id': product.id}) }}">Editer</a>
+                        {#                    <a href="{{ path('admin_prod_delete', {'id': product.id}) }}">Supprimer</a> #}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

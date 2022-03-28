@@ -18,7 +18,9 @@ class BillController extends AbstractController
     public function index(Order $order)
     {
         $pdfOptions = new Options();
-        $pdfOptions->set(array('defaultFont'=> 'Arial', 'isRemoteEnabled'=>true));
+//        $pdfOptions->set(array('defaultFont'=> 'Arial', 'isRemoteEnabled'=>true));
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
         $dompdf = new Dompdf($pdfOptions);
         $html = $this->renderView('bill/index.html.twig', [
             'order' => $order,
